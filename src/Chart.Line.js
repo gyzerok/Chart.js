@@ -251,6 +251,48 @@
 			},this);
 			this.update();
 		},
+		shiftLeft() : function(values, label){
+			//Map the values array for each of the datasets
+			this.scale.removeLeftXLabel();
+
+			helpers.each(valuesArray,function(value,datasetIndex){
+				//Add a new point for each piece of data, passing any required data to draw.
+				this.datasets[datasetIndex].points.push(new this.PointClass({
+					value : value,
+					label : label,
+					datasetLabel: this.datasets[datasetIndex].label,
+					x: this.scale.calculateX(this.scale.valuesCount+1),
+					y: this.scale.endPoint,
+					strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+					fillColor : this.datasets[datasetIndex].pointColor
+				}));
+			},this);
+
+			this.scale.addRightXLabel(label);
+			//Then re-render the chart.
+			this.update();
+		},
+		shiftRight() : function(values, label){
+			//Map the values array for each of the datasets
+			this.scale.removeRightXLabel();
+
+			helpers.each(valuesArray,function(value,datasetIndex){
+				//Add a new point for each piece of data, passing any required data to draw.
+				this.datasets[datasetIndex].points.unshift(new this.PointClass({
+					value : value,
+					label : label,
+					datasetLabel: this.datasets[datasetIndex].label,
+					x: this.scale.calculateX(this.scale.valuesCount+1),
+					y: this.scale.endPoint,
+					strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+					fillColor : this.datasets[datasetIndex].pointColor
+				}));
+			},this);
+
+			this.scale.addLeftXLabel(label);
+			//Then re-render the chart.
+			this.update();
+		},
 		reflow : function(){
 			var newScaleProps = helpers.extend({
 				height : this.chart.height,
