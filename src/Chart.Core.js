@@ -1592,7 +1592,7 @@
 			this.xLabels.pop();
 			this.valuesCount--;
 			this.fit();
-		}
+		},
 		// Fitting loop to rotate x Labels and figure out what fits there, and also calculate how many Y steps to use
 		fit: function(){
 			// First we need the width of the yLabels, assuming the xLabels aren't rotated
